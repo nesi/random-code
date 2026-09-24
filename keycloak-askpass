@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+prompt="$1"
+url=$(grep -oE 'https://[^ ]+' <<<"$prompt")
+
+if [[ -n $url ]]; then
+    xdg-open "$url" >/dev/null 2>&1 &
+
+    printf 'Keycloak login can be completed in the browser, then press ENTER ' "$url" >/dev/tty
+    read -r </dev/tty
+    echo ""          # the empty answer is the "press ENTER"
+else
+    echo "Not sure this is a keycloak auth, bye"
+fi
