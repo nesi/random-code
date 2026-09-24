@@ -17,7 +17,7 @@ if [[ -n $url ]]; then
          echo "Currently only supported on Linux and Mac, sorry Windows users..."
          exit 1
     esac
-    printf 'Keycloak login can be completed in the browser, then press ENTER ' "$url" >/dev/tty
+    printf 'Keycloak login can be completed in the browser, then press ENTER '  >/dev/tty
     read -r </dev/tty
     echo ""          # the empty answer is the "press ENTER"
 else
