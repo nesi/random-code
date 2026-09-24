@@ -10,14 +10,14 @@ if [[ -n $url ]]; then
       "Linux" )
         # for standard linux desktop
          command -v xdg-open >/dev/null 2>&1 && xdg-open "$url" >/dev/null 2>&1 &
-        # for WSL and possibly VSCode
-         command -v explorer.exe >/dev/null 2>&1 && explorer.exe "$url" >/dev/null 2>&1 &
+         # for WSL and possibly VSCode (requires `sudo apt install wslu`)
+         command -v wslview >/dev/null 2>&1 && wslview "$url" >/dev/null 2>&1 &
       ;;
       "Darwin" )
          open "$url" >/dev/null 2>&1 &
       ;;
     * )
-      echo "This can only run from Linux (with default desktop setup), MacOS, or WSL (possibly VSCode?)..."
+      echo "This can only run from Linux (with default desktop setup), MacOS, or WSL (with wslu installed)"
          exit 1
     esac
     printf 'Keycloak login can be completed in the browser, then press ENTER '  >/dev/tty
