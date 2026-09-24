@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+### This script can be used with SSH_ASKPASS to push keycloak automatically to your browser.  Add a shell function such as:
+### kssh() { SSH_ASKPASS=~/.local/bin/keycloak-askpass SSH_ASKPASS_REQUIRE=force ssh "$@"; }
+###
 prompt="$1"
 url=$(grep -oE 'https://[^ ]+' <<<"$prompt")
 
