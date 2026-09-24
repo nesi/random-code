@@ -8,13 +8,16 @@ url=$(grep -oE 'https://[^ ]+' <<<"$prompt")
 if [[ -n $url ]]; then
     case $(uname -s) in 
       "Linux" )
-         xdg-open "$url" >/dev/null 2>&1 &
+        # for standard linux desktop
+         command -v xdg-open >/dev/null 2>&1 && xdg-open "$url" >/dev/null 2>&1 &
+        # for WSL and possibly VSCode
+         command -v explorer.exe >/dev/null 2>&1 && explorer.exe "$url" >/dev/null 2>&1 &
       ;;
       "Darwin" )
          open "$url" >/dev/null 2>&1 &
       ;;
     * )
-         echo "Currently only supported on Linux and Mac, sorry Windows users..."
+      echo "This can only run from Linux (with default desktop setup), MacOS, or WSL (possibly VSCode?)..."
          exit 1
     esac
     printf 'Keycloak login can be completed in the browser, then press ENTER '  >/dev/tty
