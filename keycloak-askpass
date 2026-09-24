@@ -3,8 +3,17 @@ prompt="$1"
 url=$(grep -oE 'https://[^ ]+' <<<"$prompt")
 
 if [[ -n $url ]]; then
-    xdg-open "$url" >/dev/null 2>&1 &
-
+    case $(uname -s) in 
+      "Linux" )
+         xdg-open "$url" >/dev/null 2>&1 &
+      ;;
+      "Darwin" )
+         open "$url" >/dev/null 2>&1 &
+      ;;
+    * )
+         echo "Currently only supported on Linux and Mac, sorry Windows users..."
+         exit 1
+    esac
     printf 'Keycloak login can be completed in the browser, then press ENTER ' "$url" >/dev/tty
     read -r </dev/tty
     echo ""          # the empty answer is the "press ENTER"
